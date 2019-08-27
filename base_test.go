@@ -49,6 +49,16 @@ func TestNewBase(t *testing.T) {
 	_ = h
 }
 
+func TestBasePairs(t *testing.T) {
+	h := make(Host)
+	for i, v := range basePairs {
+		if err := h.Add(v.name, v.pattern); err != nil {
+			t.Fatalf("Failed on %d: %s %v", i, v.name, err)
+		}
+	}
+
+}
+
 //
 // TODO/REDO ah-ha-ha
 //
