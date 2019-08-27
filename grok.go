@@ -206,6 +206,11 @@ func (p *Pattern) Parse(input string) map[string]string {
 	return r
 }
 
+// NameMap returns a reference to the name map
+func (p *Pattern) NameMap() map[string]int {
+	return p.s
+}
+
 // Names returns all names that this pattern has
 func (p *Pattern) Names() (ss []string) {
 	ss = make([]string, 0, len(p.s))
