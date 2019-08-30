@@ -1,5 +1,10 @@
 ## These patterns were tested w/ haproxy-1.4.15
 
+# required syslog patterns
+SYSLOGPROG %{PROG:program}(?:\[%{POSINT:pid}\])?
+SYSLOGFACILITY <%{NONNEGINT:facility}.%{NONNEGINT:priority}>
+SYSLOGBASE %{SYSLOGTIMESTAMP:timestamp} (?:%{SYSLOGFACILITY} )?%{NOTSPACE:logsource} %{SYSLOGPROG}:
+
 ## Documentation of the haproxy log formats can be found at the following links:
 ## http://code.google.com/p/haproxy-docs/wiki/HTTPLogFormat
 ## http://code.google.com/p/haproxy-docs/wiki/TCPLogFormat
