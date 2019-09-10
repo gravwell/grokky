@@ -26,6 +26,7 @@
 package grokky
 
 import (
+	"fmt"
 	"io/ioutil"
 	fp "path/filepath"
 	"testing"
@@ -67,6 +68,25 @@ func Test_ngaccess(t *testing.T) {
 	mss := p.Parse(line)
 	if len(mss) == 0 {
 		t.Error("nginx access not matched")
+	}
+	t.Log(mss)
+	fmt.Println(p.String())
+}
+
+func Test_apachecombined(t *testing.T) {
+	h := NewBase()
+	err := h.AddFromFile(repoPath("apache"))
+	if err != nil {
+		t.Error(err)
+	}
+	line := `38.192.44.236 - - [08/May/2017:14:55:09 -0600] "DELETE /search/tag/list HTTP/1.0" 200 5075 "https://warner.com/posts/list/tags/category.php" "Mozilla/5.0 (X11; Linux i686; rv:1.9.7.20) Gecko/2017-05-22 14:10:36 Firefox/10.0"`
+	p, err := h.Compile("%{COMBINEDAPACHELOG}")
+	if err != nil {
+		t.Error(err)
+	}
+	mss := p.Parse(line)
+	if len(mss) == 0 {
+		t.Error("apache access not matched")
 	}
 	t.Log(mss)
 }
